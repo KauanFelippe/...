@@ -1,67 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1 id="titulo"> Bem-vindo!</h1>
+  </head>
+  <body>
+    <h1 id="titulo">Bem-vindo!</h1>
     <p>Clique no botão para alterar a cor de acordo com o horário</p>
+    
+    <p id="hora"></p>
+    <p id="data"></p>
     <button onclick="trocar()">Mudar Cor</button>
 
     <script>
-        function trocar() {
-            const hora = new Date().getHours();
-            let cor;
-            let mensagem;
-
-            if (hora >= 6 && hora < 12) {
-                cor = "#FFD700"; // dourado manhã.
-                mensagem = "Bom dia!";
-            } else if (hora >= 12 && hora < 23) {
-                cor = "#FF8C00"; //laranja tarde
-                mensagem = "Boa tarde!";
-            }else if (hora >= 18 && hora < 23) {
-                cor = "#1E90FF"; // cinza escuro madrugada
-                mensagem = "Hora de descansar!";
-            }
-
-            document.body.style.backgroundColor = cor;
-            document.getElementById("titulo").innerHTML = mensagem;
+      function trocar() {
+        const agora = new Date();
+        const hora = agora.getHours();
+        const minutos = agora.getMinutes().toString().padStart(2, "0");
+        const opcoes = {
+            weekday:'long',
+            year:'numeric', 
+            month:'long',
+            day:'numeric',
+        } 
+        const dataFormatada = agora.toLocaleDateString("pt-BR",opcoes)
+        
+        let cor;
+        let mensagem;
+        
+        if (hora >= 6 && hora < 12) {
+            cor = "#FFD700"; // dourado manhã.
+            mensagem = "Bom dia!";
+        } else if (hora >= 12 && hora < 23) {
+            cor = "#FF8C00"; //laranja tarde
+            mensagem = "Boa tarde!";
+        } else if (hora >= 18 && hora < 23) {
+            cor = "#1E90FF"; // cinza escuro madrugada
+            mensagem = "Hora de descansar!";
         }
+        // const opcoes = {
+        //   weekday: "long",
+        //   year: "numeric",
+        //   month: "long",
+        //   day: "numeric",
+        // };
+        // const dataFormatada = agora.toLocalDateSting("pt-BR", opcoes);
+        // const minutos = agora.getMinutes().toString().padStart(2, "0");
+        
+        document.body.style.backgroundColor = cor;
+        document.getElementById("titulo").innerHTML = mensagem;
+
+        document.getElementById("hora").innerHTML = hora + ":" + minutos;
+        document.getElementById("data").innerHTML = dataFormatada;
+      }
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
-        body {
-            transition: background-color 1s;
-            font-family: Arial, sans-serif;
-            color: rgb(7,7,7,);
-            text-align: center;
-            padding-top: 70px;
-        }
-    button{
+      body {
+        transition: background-color 1s;
+        font-family: Arial, sans-serif;
+        color: rgb(7, 7, 7);
+        text-align: center;
+        padding-top: 70px;
+      }
+      button {
         padding: 10px 20px;
         font-size: 16px;
         margin-top: 20px;
         cursor: pointer;
         border: none;
         border-radius: 5px;
-    }
-    @media(max-width: 168px){
-        body{ font-size: 35px; padding-top: 50px;}
-        button{ font-size: 14px; padding-top: 8px 16px;}
-    }
+      }
+      @media (max-width: 168px) {
+        body {
+          font-size: 35px;
+          padding-top: 50px;
+        }
+        button {
+          font-size: 14px;
+          padding-top: 8px 16px;
+        }
+      }
     </style>
-</head>
-<body>
-    
-</body>
-</html>
+  </body>
+
