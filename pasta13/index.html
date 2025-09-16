@@ -7,17 +7,16 @@
   </head>
   <body>
     <h1 id="titulo">Bem-vindo!</h1>
-    <p>Clique no botão para alterar a cor de acordo com o horário</p>
     
     <p id="hora"></p>
     <p id="data"></p>
-    <button onclick="trocar()">Mudar Cor</button>
 
     <script>
-      function trocar() {
-        const agora = new Date();
-        const hora = agora.getHours();
-        const minutos = agora.getMinutes().toString().padStart(2, "0");
+        function trocar() {
+        let agora = new Date();
+        let hora = agora.getHours();
+        let minutos = agora.getMinutes().toString().padStart(2, "0");
+        let segundos = agora.getSeconds().toString().padStart(2, "0");
         const opcoes = {
             weekday:'long',
             year:'numeric', 
@@ -40,21 +39,25 @@
             mensagem = "Hora de descansar!";
         }
         // const opcoes = {
-        //   weekday: "long",
-        //   year: "numeric",
-        //   month: "long",
-        //   day: "numeric",
-        // };
-        // const dataFormatada = agora.toLocalDateSting("pt-BR", opcoes);
-        // const minutos = agora.getMinutes().toString().padStart(2, "0");
-        
-        document.body.style.backgroundColor = cor;
-        document.getElementById("titulo").innerHTML = mensagem;
-
-        document.getElementById("hora").innerHTML = hora + ":" + minutos;
-        document.getElementById("data").innerHTML = dataFormatada;
-      }
-    </script>
+            //   weekday: "long",
+            //   year: "numeric",
+            //   month: "long",
+            //   day: "numeric",
+            // };
+            // const dataFormatada = agora.toLocalDateSting("pt-BR", opcoes);
+            // const minutos = agora.getMinutes().toString().padStart(2, "0");
+            
+            document.body.style.backgroundColor = cor;
+            document.getElementById("titulo").innerHTML = mensagem;
+            
+            document.getElementById("hora").innerHTML = hora + ":" + minutos + ":" +segundos;
+            document.getElementById("data").innerHTML = dataFormatada;
+        }
+        window.onload = function(){
+        trocar();
+        setInterval(trocar,5)
+        }
+        </script>
     <style>
       body {
         transition: background-color 1s;
@@ -83,4 +86,3 @@
       }
     </style>
   </body>
-
