@@ -10,6 +10,10 @@
     
     <p id="hora"></p>
     <p id="data"></p>
+    <P id="frases"></P>
+    <P id="motivacional"></P>
+    <P id="dia"></P>
+    
 
     <script>
         function trocar() {
@@ -17,26 +21,46 @@
         let hora = agora.getHours();
         let minutos = agora.getMinutes().toString().padStart(2, "0");
         let segundos = agora.getSeconds().toString().padStart(2, "0");
+        let diaDaSemana = agora.getDay();
+        
+        
+        
         const opcoes = {
-            weekday:'long',
-            year:'numeric', 
-            month:'long',
+          weekday:'long',
+          year:'numeric', 
+          month:'long',
             day:'numeric',
-        } 
-        const dataFormatada = agora.toLocaleDateString("pt-BR",opcoes)
-        
-        let cor;
-        let mensagem;
-        
+          } 
+          const dataFormatada = agora.toLocaleDateString("pt-BR",opcoes)
+          
+          let cor;
+          let mensagem;
+          let dia;
+          
         if (hora >= 6 && hora < 12) {
             cor = "#FFD700"; // dourado manhã.
             mensagem = "Bom dia!☀️​";
+            frase = [
+            "mensagem 1",
+            "mensagem 2",
+            "mensagem 3",
+            ]
         } else if (hora >= 12 && hora < 23) {
             cor = "#FF8C00"; //laranja tarde
             mensagem = "Boa tarde!⛅";
+            frase = [
+            "mensagem 4",
+            "mensagem 5",
+            "mensagem 6"
+            ]
         } else if (hora >= 18 && hora < 23) {
             cor = "#1E90FF"; // cinza escuro madrugada
             mensagem = "Hora de descansar!​🌚";
+            frase = [
+            "mensagem 7",
+            "mensagem 8",
+            "mensagem 9",
+            ]
         }
         // const opcoes = {
             //   weekday: "long",
@@ -50,14 +74,28 @@
             document.body.style.backgroundColor = cor;
             document.getElementById("titulo").innerHTML = mensagem;
             
-            document.getElementById("hora").innerHTML = hora + ":" + minutos + ":" +segundos;
             document.getElementById("data").innerHTML = dataFormatada;
+            document.getElementById("hora").innerHTML = hora + ":" + minutos + ":" +segundos;
+            document.getElementById("dia").innerHTML = diaDaSemana;
+            document.getElementById("motivacional").innerHTML = frases[Math. floor(Math.random() * frases.legth)];
+            document.getElementById("diaDaSemana").innerHTML 
         }
-        window.onload = function(){
+        
+        function trocarFrases(){
+        const indicefrase = frase
+        if (frase.legth> 0)
+      
+      
+      
+      window.onload = function(){
         trocar();
-        setInterval(trocar,5)
+        trocarFrases();
+        setInterval(trocarFrases,1000);
+        setInterval(trocar,5000);
         }
+      }
         </script>
+        
     <style>
       body {
         transition: background-color 1s;
