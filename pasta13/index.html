@@ -4,98 +4,98 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+      <link rel="manifest" href="manifest.json">
+      <meta name="theme-color" content="#000000"
   </head>
   <body>
     <h1 id="titulo">Bem-vindo!</h1>
     
     <p id="hora"></p>
     <p id="data"></p>
-    <P id="frases"></P>
-    <P id="motivacional"></P>
-    <P id="dia"></P>
+    <p id="frases"></p>
+    <p id="motivacional"></p>
+    <p id="dia"></p>
     
-
     <script>
-        function trocar() {
+      let frases = []; // variável global para as frases atuais
+
+      function trocar() {
         let agora = new Date();
         let hora = agora.getHours();
         let minutos = agora.getMinutes().toString().padStart(2, "0");
         let segundos = agora.getSeconds().toString().padStart(2, "0");
         let diaDaSemana = agora.getDay();
-        
-        
-        
+
         const opcoes = {
-          weekday:'long',
-          year:'numeric', 
-          month:'long',
-            day:'numeric',
-          } 
-          const dataFormatada = agora.toLocaleDateString("pt-BR",opcoes)
-          
-          let cor;
-          let mensagem;
-          let dia;
-          
+          weekday: 'long',
+          year: 'numeric', 
+          month: 'long',
+          day: 'numeric',
+        };
+        const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
+
+        let cor;
+        let mensagem;
+
         if (hora >= 6 && hora < 12) {
-            cor = "#FFD700"; // dourado manhã.
-            mensagem = "Bom dia!☀️​";
-            frase = [
-            "mensagem 1",
-            "mensagem 2",
-            "mensagem 3",
-            ]
-        } else if (hora >= 12 && hora < 23) {
-            cor = "#FF8C00"; //laranja tarde
-            mensagem = "Boa tarde!⛅";
-            frase = [
-            "mensagem 4",
-            "mensagem 5",
-            "mensagem 6"
-            ]
-        } else if (hora >= 18 && hora < 23) {
-            cor = "#1E90FF"; // cinza escuro madrugada
-            mensagem = "Hora de descansar!​🌚";
-            frase = [
-            "mensagem 7",
-            "mensagem 8",
-            "mensagem 9",
-            ]
+          cor = "#FFD700"; // dourado manhã.
+          mensagem = "Bom dia!☀️";
+          frases = [
+            "Comece o dia com energia e conquiste o mundo",
+            "Cada amanhecer é uma chance para brilhar",
+            "Levante-se forte e faça o dia inesquecível",
+          ];
+        } else if (hora >= 12 && hora < 18) {
+          cor = "#FF8C00"; // laranja tarde
+          mensagem = "Boa tarde!⛅";
+          frases = [
+            "Persista nas conquistas",
+            "Mantenha o foco: o sucesso está logo ali",
+            "Recarregue e avance com determinação",
+          ];
+        } else {
+          cor = "#1E90FF"; // azul escuro noite/madrugada
+          mensagem = "Hora de descansar!🌚";
+          frases = [
+            "Reflita nas conquistas e descance",
+            "A noite renova forças para novos sonhos",
+            "Durma bem e acorde pronto para vencer",
+          ];
         }
-        // const opcoes = {
-            //   weekday: "long",
-            //   year: "numeric",
-            //   month: "long",
-            //   day: "numeric",
-            // };
-            // const dataFormatada = agora.toLocalDateSting("pt-BR", opcoes);
-            // const minutos = agora.getMinutes().toString().padStart(2, "0");
-            
-            document.body.style.backgroundColor = cor;
-            document.getElementById("titulo").innerHTML = mensagem;
-            
-            document.getElementById("data").innerHTML = dataFormatada;
-            document.getElementById("hora").innerHTML = hora + ":" + minutos + ":" +segundos;
-            document.getElementById("dia").innerHTML = diaDaSemana;
-            document.getElementById("motivacional").innerHTML = frases[Math. floor(Math.random() * frases.legth)];
-            document.getElementById("diaDaSemana").innerHTML 
-        }
-        
-        function trocarFrases(){
-        const indicefrase = frase
-        if (frase.legth> 0)
-      
-      
-      
-      window.onload = function(){
-        trocar();
-        trocarFrases();
-        setInterval(trocarFrases,1000);
-        setInterval(trocar,5000);
+
+        document.body.style.backgroundColor = cor;
+        document.getElementById("titulo").innerHTML = mensagem;
+        document.getElementById("data").innerHTML = dataFormatada;
+        document.getElementById("hora").innerHTML = hora + ":" + minutos + ":" + segundos;
+
+        // Mostrar o nome do dia da semana em português com primeira letra maiúscula
+        const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        document.getElementById("dia").innerHTML = diasSemana[diaDaSemana];
+      }
+
+      function trocarFrases() {
+        if (frases.length > 0) {
+          const indiceFrase = Math.floor(Math.random() * frases.length);
+          document.getElementById("motivacional").innerHTML = frases[indiceFrase];
         }
       }
-        </script>
-        
+
+      window.onload = function() {
+        trocar();
+        trocarFrases();
+        setInterval(trocarFrases, 4000);
+        setInterval(trocar, 5000);
+      };
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js")
+          .then(() => console.log("Service Worker registrado")) 
+          .catch(err => console.log("Erro no SW:", err));
+      }
+    </script>
+    
     <style>
       body {
         transition: background-color 1s;
@@ -103,6 +103,7 @@
         color: rgb(7, 7, 7);
         text-align: center;
         padding-top: 70px;
+        
       }
       button {
         padding: 10px 20px;
@@ -124,3 +125,4 @@
       }
     </style>
   </body>
+</html>
